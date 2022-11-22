@@ -7,8 +7,6 @@ Created on Mon Nov 14 16:47:29 2022
 
 import numpy as np
 import pandas as pd
-#import matplotlib.pyplot as plt
-#import seaborn as sns
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -63,7 +61,7 @@ external_stylesheets = [
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
-app.title = "DataViz COVID Infection Rates"  # Appears in web browser bar and in goodle search results
+app.title = "DataViz US COVID Infection Rates"  # Appears in web browser bar and in goodle search results
 
 app.layout = html.Div(
     children=[
@@ -75,14 +73,10 @@ app.layout = html.Div(
                 ),
                 html.P(
                     children='''A dashboard that presents daily new cases of COVID-19 reported by the US CDC, transformed into a percentage of each state population.
-                        The left side of this dashboard shows new cases in each state on a selected date.
-                        The right side of this dashboard shows new cases in a selected state over a selected date range.
-                        The top visuals show data for each 1-day period and the bottom visuals show data over 14-day periods.
+                        Additionally, 14-days aggregated new cases of COVID-19 up to each date is presented.
+                        
+                        DISCLAIMER: This app is not intended to provide medical advice nor public health statements 
                     ''',
-         
-#                      The daily new case data is transformed to new cases summed over 14-days
-#                      The new case data are further transformed to represent the percentage of a state population
-#                      that are new cases during the past 1-day and past 14-days
                     className='header-description'
                 ),
             ],
@@ -97,18 +91,22 @@ app.layout = html.Div(
                         # Create Dropdown then Map Bubble charts on left side
                         html.Div(
                             children=[
-                                    html.Div('Date', className='menu-title'),
-                                    dcc.DatePickerSingle(
-                                        id='date-filter',
-                                        min_date_allowed=covid_df['submit_date'].min(),
-                                        max_date_allowed=covid_df['submit_date'].max(),
-#                                        display_format='MMM D YYYY',
-#                                        date=covid_df['submit_date'].max(),
-                                        clearable=False,
-                                        date='2022-01-18',
+                                    html.H3('New cases in each state on selected date', className='menu-title'),
+                                    html.Div(
+                                        children=[
+                                            html.Div('Date', className='menu-title'),
+                                            dcc.DatePickerSingle(
+                                                id='date-filter',
+                                                min_date_allowed=covid_df['submit_date'].min(),
+                                                max_date_allowed=covid_df['submit_date'].max(),
+                                                clearable=False,
+                                                date='2022-01-18',
+                                            ),
+                                        ],
+                                        className='menu-single',
                                     ),
                             ],
-                            className='menu',
+                            className='menu-card',
                         ),
                         # Create Map Bubble charts
                         html.Div(
@@ -141,39 +139,52 @@ app.layout = html.Div(
                             children=[
                                 html.Div(
                                     children=[
-                                        html.Div(children='State', className='menu-title'),
-                                        dcc.Dropdown(
-                                            id="state-filter",
-                                            options=[
-                                                {"label":state, "value":state}
-                                                for state in np.sort(covid_df['state'].unique())
+                                        html.Div(
+                                            children=[
+                                                html.H3('New cases in a selected state over a selected date range', className='menu-title'),
+                                                html.Div(
+                                                    children=[
+                                                        html.Div(
+                                                            children=[
+                                                                html.Div('State', className='menu-title'),
+                                                                dcc.Dropdown(
+                                                                    id="state-filter",
+                                                                    options=[
+                                                                        {"label":state, "value":state}
+                                                                        for state in np.sort(covid_df['state'].unique())
+                                                                    ],
+                                                                    value="NY",
+                                                                    clearable=False,
+                                                                    searchable=True,
+#                                                                   multi=True,
+                                                                    className='dropdown',
+                                                                ),
+                                                            ],
+                                                        ),
+                                                        html.Div(
+                                                            children=[
+                                                                html.Div(children='Date Range', className='menu-title'),
+                                                                dcc.DatePickerRange(
+                                                                    id='date-range',
+                                                                    min_date_allowed=covid_df['submit_date'].min(),
+                                                                    max_date_allowed=covid_df['submit_date'].max(),
+                                                                    start_date = '2021-10-01',
+                                                                    end_date=covid_df['submit_date'].max(),
+                                                                    className='dropdown',
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    className='menu-multi',
+                                                ),
                                             ],
-                                            value="NY",
-                                            clearable=False,
-                                            searchable=True,
-#                                       multi=True,
-                                            className='dropdown',
+                                            className='menu-card', 
                                         ),
                                     ],  
                                 ),
-                                html.Div(
-                                    children=[
-                                        html.Div(children='Date Range', className='menu-title'),
-                                        dcc.DatePickerRange(
-                                            id='date-range',
-#                                            min_date_allowed=covid_df['submit_date'].min().date(),
-#                                            max_date_allowed=covid_df['submit_date'].max().date(),
-                                            min_date_allowed=covid_df['submit_date'].min(),
-                                            max_date_allowed=covid_df['submit_date'].max(),
-#                                            start_date=covid_df['submit_date'].min(),
-                                            start_date = '2021-10-01',
-                                            end_date=covid_df['submit_date'].max(),
-                                        ),
-                                    ]
-                                ),
-                            ],
-                            className='menu', 
+                            ],                           
                         ),
+                        # Create Line/Bar charts
                         html.Div(
                             children=[
                                 html.Div(
@@ -247,7 +258,7 @@ def update_charts(date, state, start_date, end_date):
     
     daily_cases_map_figure.update_layout(
             title_text='<b>Daily New Cases of Covid in US on %s</b>'% date,
-            width=800,
+            width=700,
     )
     
 
@@ -269,7 +280,7 @@ def update_charts(date, state, start_date, end_date):
     
     d14_cases_map_figure.update_layout(
             title_text='<b>14-day New Cases of Covid in US on %s</b>'% date,
-            width=800,
+            width=700,
     )
     
     
@@ -287,7 +298,7 @@ def update_charts(date, state, start_date, end_date):
     daily_cases_chart_figure = make_subplots(specs=[[{"secondary_y":True}]])
     daily_cases_chart_figure.update_layout(
             title_text='<b>Daily New Cases of COVID in %s</b>'%state,
-            width=800,
+            width=700,
     )
     daily_cases_chart_figure.update_xaxes(title_text='Date')
     daily_cases_chart_figure.update_yaxes(title_text='New Cases <b>(Count)</b>', secondary_y=False, color=" #079A82")
@@ -326,7 +337,7 @@ def update_charts(date, state, start_date, end_date):
     d14_cases_chart_figure = make_subplots(specs=[[{"secondary_y":True}]])
     d14_cases_chart_figure.update_layout(
             title_text='<b>14-day New Cases of COVID in %s</b>'%state,
-            width=800,
+            width=700,
     )
     d14_cases_chart_figure.update_xaxes(title_text='Date')
     d14_cases_chart_figure.update_yaxes(title_text='New Cases (14d) <b>(Count)</b>', secondary_y=False, color=" #079A82")
@@ -360,95 +371,9 @@ def update_charts(date, state, start_date, end_date):
         ),
         secondary_y=False
     )
-#    daily_cases_chart_figure = {
-#            "data":[
-#                {
-#                    "x": filtered_data['submit_date'],
-#                    "y": filtered_data['new_cases % pop (1d)'],
-#                    "type":"scatter",
-#                    "hovertemplate": "%{y:.3f}%<extra></extra>",
-#                    "name":'New Cases %',
-#                },
-#                {
-#                    "x": filtered_data['submit_date'],
-#                    "y": filtered_data['new_cases (1d)'],
-#                    "type":"bar",
-#                    "name":'New Cases Count',
-#                },
-#            ], #layout
-#            "layout":{
-#                "autosize":True
-#            }
-#    }
-
-#    d14_cases_chart_figure = {
-#            "data":[
-#                {
-#                    "x":filtered_data['submit_date'],
-#                    "y":filtered_data['new_cases % pop (14d)']*100,
-#                    "type":"scatter",
-#                    "name":"New Cases %",
-#                },
-#                {
-#                    "x":filtered_data['submit_date'],
-#                    "y":filtered_data['new_cases (14d)'],
-#                    "type":"bar",
-#                    "name":"New Cases Count",
-#                },
-#            ], #layout
-#            "layout":{
-#                "autosize":True
-#            },
-#    }
     
     return daily_cases_map_figure, d14_cases_map_figure, daily_cases_chart_figure, d14_cases_chart_figure
 
-#data=covid_df.query("state == 'NY'")
-#data.sort_values('submit_date', inplace=True, ascending=False)
-#
-#app.layout = html.Div(
-#    children=[
-#        html.H1(
-#            children='🤒 Daily US Covid Cases By Percent Population',
-#            className='header-title',
-##            style={"fontSize":"60px", "color":"green"},
-#        ),
-#        html.P(
-#            children='Daily Cases in NY State'
-#        ),
-#        dcc.Graph(
-#            figure={
-#                "data": [
-#                    {
-#                        "x": covid_df['submit_date'],
-#                        "y": covid_df['new_cases_percent']*100,
-#                        "type": "lines",
-#                        "hovertemplate":"%{y:.3f}%"
-#                                            "<extra></extra>",
-#                    },
-#                ],
-#                "layout": {
-#                    "title": "State Percentage",
-#                    "yaxis": {
-#                        "ticksuffix":"%"        
-#                    },
-#                },
-#            },
-#        ),
-#        dcc.Graph(
-#            figure={
-#                "data":[
-#                    {
-#                        "x": covid_df['submit_date'],
-#                        "y": covid_df['cases_last_14_pop_percent'],
-#                        "type": "lines"
-#                    },
-#                ],
-#                "layout":{"title":"Total Percentage Last 14 days"}
-#                },
-#            ),
-#    ]
-#)
 
     
 if __name__ == "__main__":

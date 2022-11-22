@@ -2,7 +2,6 @@ body {
 	font-family: "Lato", sans-serif;
 	margin: 0;
 	background-color: #F7F7F7;
-	width:device-width;
 }
 
 h1 {
@@ -36,21 +35,34 @@ h1 {
 }
 
 
-.menu {
-    height: 100px;
+.menu-card {
+	height: 125px;
     width: 500px;
-    display: flex;
-    justify-content: space-evenly;
-    padding-top: 24px;
-    margin: -15px auto 0 auto;
+	padding: 1px 1px 15px 20px;
+    margin: -15px auto 0px auto;
     background-color: #FFFFFF;
     box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.18);
 }
 
+.menu-single {
+	text-align: center;
+}
+
+.menu-multi {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .menu-title {
     margin-bottom: 6px;
-    font-weight: bold;
+	font-weight: bold;
     color: #079A82;
+}
+
+.dropdown {
+	width: auto;
+	height: 48px;
+	line-height: auto;
 }
 
 .card {
