@@ -24,10 +24,10 @@ most_recent_fp = ''
 
 with os.scandir(os.path.join('.','datasets','Generated')) as directory:
     for f in directory:
-        if (f.stat().st_ctime > most_recent_date) and ('US_' in f.name):
+        if (f.stat().st_mtime > most_recent_date) and ('US_' in f.name):
             most_recent_fp = f.path
-            most_recent_date = f.stat().st_ctime
-            print(f, f.stat().st_ctime, f.path)
+            most_recent_date = f.stat().st_mtime
+            print(f, f.stat().st_mtime, f.path)
 
 
 covid_df = pd.read_csv(most_recent_fp)
@@ -72,9 +72,9 @@ app.layout = html.Div(
                     className='header-title',
                 ),
                 html.P(
-                    children='''A dashboard that presents daily new cases of COVID-19 reported by the US CDC, transformed into a percentage of each state population.
-                        Additionally, 14-days aggregated new cases of COVID-19 up to each date is presented.
-                        
+                    children='''A dashboard that presents daily new cases of COVID-19 reported by the US CDC, transformed into a percentage of each state population
+                        Additionally, 14-days aggregated new cases of COVID-19 up to each date is presented
+                        Note: Please allow up to thirty seconds for graphs to load
                         DISCLAIMER: This app is not intended to provide medical advice nor public health statements 
                     ''',
                     className='header-description'
