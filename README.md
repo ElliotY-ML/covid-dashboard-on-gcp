@@ -1,12 +1,18 @@
 # Overview
-This repository contains code and data for a dashboard deployed on the Google Cloud Platform (GCP) App Engine.  
+This repository contains Python code and data for a dashboard deployed on the Google Cloud Platform (GCP) App Engine.  
 The interactive Plotly Dash dashboard displays reported U.S. cases of COVID-19 in line graphs, bar charts, and heat maps.
 
 ![Created using Dash](/img/DashGCPScreenShot.JPG)
 [Link to Dash dashboard deployed on GCP](https://covid-dash-374301.ue.r.appspot.com/)
 
-# Introduction  
-  
+# Table of Contents
+- [Introduction](#introduction)
+- [Dependencies](#dependencies)
+- [Data Sources](#data-sources)
+- [Data Preparation](#data-preparation)
+- [License](#license)
+
+# Introduction
 This project presents a different aspect than those seen on New York Times [1] and U.S. CDC analysis [2] by analyzing totals of new COVID-19 cases reported in the past 14 days.  
 
 Estimates of the percentage of each state population that is currently infected with COVID-19 is calculated by normalizing the past 14 day new case totals to their respective state populations. 
@@ -22,6 +28,7 @@ and COVID-19 RNA usually becomes undetectable from upper respiratory tract sampl
 [5]  https://www.nytimes.com/interactive/2022/01/22/science/charting-omicron-infection.html
 
 # Dependencies
+- Python3
 - SQLite3
 - Requests
 - pandas
@@ -35,9 +42,8 @@ and COVID-19 RNA usually becomes undetectable from upper respiratory tract sampl
 
 ## CDC U.S. COVID-19 Cases and Deaths By State  
 U.S. CDC reports COVID-19 cases and death counts online at this [link](https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36).  
-The data is a collection of the most recent numbers reported by states, territories, and other jurisdictions to the CDC.
-
-**Notes**:  
+The data is a collection of the most recent numbers reported by states, territories, and other jurisdictions to the CDC.  
+**Notes**:
 -  This dataset includes Confirmed Cases and Probable Cases, as defined by CSTE [6]. Confirmed cases meet molecular laboratory testing evidence, while Probable cases meet clinical criteria without laboratory evidence. 
 Many jurisdictions include both their confirmed and probable cases ("pnew_case") into reported "Total Cases" and "New Case" counts.
 -  Counts for New York City and New York State are provided separately.  This data must be recombined to analyze them as one New York state.
