@@ -16,7 +16,7 @@ The interactive Plotly Dash dashboard displays reported U.S. cases of COVID-19 i
 This project presents a different aspect than those seen on New York Times [1] and U.S. CDC analysis [2] by analyzing totals of new COVID-19 cases reported in the past 14 days.  
 
 Estimates of the percentage of each state population that is currently infected with COVID-19 is calculated by normalizing the past 14 day new case totals to their respective state populations. 
-The data is presented as a percentage because it may be more intuitively digested by the general population, as opposed to using a basis of per million or per 100,000 people.
+The data is presented as a percentage because it may be more intuitively understood by the general population, as opposed to using a basis of per million or per 100,000 people.
 
 The author selected time intervals of 14-days based on studies that show that an average period of COVID-19 infectiousness and risk of transmission is between 3 days before and 8 days after symptom onset, 
 and COVID-19 RNA usually becomes undetectable from upper respiratory tract samples about 2 weeks after symptom onset[3, 4, 5].
@@ -28,7 +28,7 @@ and COVID-19 RNA usually becomes undetectable from upper respiratory tract sampl
 [5]  https://www.nytimes.com/interactive/2022/01/22/science/charting-omicron-infection.html
 
 # Dependencies
-- Python3
+This repo requires Python3 and the following libraries:  
 - SQLite3
 - Requests
 - pandas
@@ -41,7 +41,7 @@ and COVID-19 RNA usually becomes undetectable from upper respiratory tract sampl
 # Data Sources
 
 ## CDC U.S. COVID-19 Cases and Deaths By State  
-U.S. CDC reports COVID-19 cases and death counts online at this [link](https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36).  
+U.S. CDC reports daily COVID-19 cases and death counts online at this [link](https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36).  
 The data is a collection of the most recent numbers reported by states, territories, and other jurisdictions to the CDC.  
 **Notes**:
 -  This dataset includes Confirmed Cases and Probable Cases, as defined by CSTE [6]. Confirmed cases meet molecular laboratory testing evidence, while Probable cases meet clinical criteria without laboratory evidence. 
@@ -66,7 +66,7 @@ Download the "National FIPS and GNIS Codes File" from the reference library.
 Information on data preparation can be found in this repository: 
 https://github.com/ElliotY-ML/Covid_Cases_By_Percent_Population
 
-The following 3 features are calculated from the datasets:
+The following features are calculated from the datasets:
 1.  `Daily New Cases as Percent of State Population = New Cases/State Population`
 2.  `New Cases in Last 14 Days = Sum(New Cases) Between Submit Date and Previous 13 Dates`
 3.  `New Cases in Last 14 Days as Percent of State Population = Cases Last 14 Days/State Population`
