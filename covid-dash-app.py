@@ -100,7 +100,7 @@ app.layout = html.Div(
                                                 min_date_allowed=covid_df['submit_date'].min(),
                                                 max_date_allowed=covid_df['submit_date'].max(),
                                                 clearable=False,
-                                                date='2022-01-18',
+                                                date='2022-01-12',
                                             ),
                                         ],
                                         className='menu-single',
@@ -253,7 +253,7 @@ def update_charts(date, state, start_date, end_date):
             color_continuous_scale=px.colors.sequential.Hot[1:][::-1],
             range_color=[0,0.6],
             basemap_visible=True,
-            hover_data={'new_cases (1d)':True,'new_cases % pop (1d)':':.2f','state':True,}
+            hover_data={'submit_date':True,'new_cases (1d)':':,','new_cases % pop (1d)':':.2f','state':True,'state_pop':':,'}
         )
     
     daily_cases_map_figure.update_layout(
@@ -274,9 +274,13 @@ def update_charts(date, state, start_date, end_date):
             color_continuous_scale=px.colors.sequential.Hot[1:][::-1],
             range_color=[0,6],
             basemap_visible=True,
-            hover_data={'new_cases (14d)':True,'new_cases % pop (14d)':':.2f','state':True, 'state_pop':True},
+            hover_data={'submit_date':True,'new_cases (14d)':':,','new_cases % pop (14d)':':.2f','state':True, 'state_pop':':,'},
 #            hovertemplate='State: %s<br>NewCases Percent (1d): %%{y:.2f}<br>NewCases Count(1d):%s'% (state, map_df['new_cases % pop (14d)']),
     )
+    
+#    d14_cases_map_figure.update_traces(
+#            hovertemplate='State: %s<br>NewCases Percent (1d): %%{y:.2f}<br>NewCases Count(1d):%s'% (state, map_df[map_df['state']==state]['new_cases (14d)'].iloc[0],)
+#    )
     
     d14_cases_map_figure.update_layout(
             title_text='<b>14-day New Cases of Covid in US on %s</b>'% date,
@@ -310,7 +314,8 @@ def update_charts(date, state, start_date, end_date):
             y=filtered_data['new_cases % pop (1d)'],                    
 #            hovertemplate= "%{y:.3f}%<extra></extra>",
             name ='New Cases %',
-            hovertemplate='State: %s<br>NewCases Percent (1d): %%{y:.2f}'% state,
+#            hovertemplate='Date: %%{x}<br>State: %s<br>NewCases(1d): %%{y:.2f}%%'% state,
+            hovertemplate='NewCases(1d): %{y:.2f}%',
 #            legend_width='10px',
             legendgrouptitle={"text":"Legend"},
             showlegend=False,
@@ -325,13 +330,17 @@ def update_charts(date, state, start_date, end_date):
             x=filtered_data['submit_date'],
             y=filtered_data['new_cases (1d)'],
             name='New Cases Count',
-            hovertemplate='State :%s<br>NewCases (1d): %%{y}'% state,
+#            hovertemplate='Date: %%{x}<br>State :%s<br>NewCases(1d): %%{y}'% state,
+            hovertemplate='NewCases(1d): %{y:,}',
             legendgrouptitle={"text":"Legend"},
             showlegend=False,
             marker={'opacity':1, 'color':"#079A82"}
         ),
         secondary_y=False
     )
+                                                    
+    daily_cases_chart_figure.update_layout(hovermode='x')                                            
+        
                                         
     # 14-Day Cases Chart
     d14_cases_chart_figure = make_subplots(specs=[[{"secondary_y":True}]])
@@ -349,7 +358,8 @@ def update_charts(date, state, start_date, end_date):
             y=filtered_data['new_cases % pop (14d)'],                    
 #            hovertemplate= "%{y:.3f}%<extra></extra>",
             name ='New Cases %',
-            hovertemplate='State: %s<br>NewCases Percent (14d): %%{y:.2f}'% state,
+#            hovertemplate='Date: %%{x}<br>State: %s<br>NewCases(14d): %%{y:.2f}%%'% state,
+            hovertemplate='NewCases(14d): %{y:.2f}%',
 #            legend_width='10px',
             legendgrouptitle={"text":"Legend"},
             showlegend=False,
@@ -364,13 +374,16 @@ def update_charts(date, state, start_date, end_date):
             x=filtered_data['submit_date'],
             y=filtered_data['new_cases (14d)'],
             name='New Cases Count',
-            hovertemplate='State :%s<br>NewCases (14d): %%{y}'% state,
+#            hovertemplate='Date: %%{x}<br>State :%s<br>NewCases (14d): %%{y}'% state,
+            hovertemplate='NewCases (14d): %{y:,}',
             legendgrouptitle={"text":"Legend"},
             showlegend=False,
             marker={'opacity':1, 'color':"#079A82"}
         ),
         secondary_y=False
     )
+                                                                
+    d14_cases_chart_figure.update_layout(hovermode='x')
     
     return daily_cases_map_figure, d14_cases_map_figure, daily_cases_chart_figure, d14_cases_chart_figure
 
