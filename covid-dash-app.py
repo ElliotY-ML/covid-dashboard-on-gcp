@@ -72,7 +72,7 @@ app.layout = html.Div(
                     className='header-title',
                 ),
                 html.P(
-                    children='''A dashboard that presents daily new cases of COVID-19 reported by the US CDC, transformed into a percentage of each state population
+                    children='''A dashboard that presents daily new cases of COVID-19 reported by the US CDC, as percentage of each state population
                         Additionally, 14-days aggregated new cases of COVID-19 up to each date is presented
                         Note: Please allow up to thirty seconds for graphs to load
                         DISCLAIMER: This app is not intended to provide medical advice nor public health statements 
@@ -253,7 +253,9 @@ def update_charts(date, state, start_date, end_date):
             color_continuous_scale=px.colors.sequential.Hot[1:][::-1],
             range_color=[0,0.6],
             basemap_visible=True,
-            hover_data={'submit_date':True,'new_cases (1d)':':,','new_cases % pop (1d)':':.2f','state':True,'state_pop':':,'}
+            hover_data={'submit_date':'|%b %d, %Y','new_cases (1d)':':,','new_cases % pop (1d)':':.2f','state':True,'state_pop':':,'},
+            labels={'new_cases % pop (1d)':'NewCases(1d) %', 'state':'State','submit_date':'Date','new_cases (1d)':'NewCases(1d)Count','state_pop':'StatePopulation'},
+            
         )
     
     daily_cases_map_figure.update_layout(
@@ -274,8 +276,9 @@ def update_charts(date, state, start_date, end_date):
             color_continuous_scale=px.colors.sequential.Hot[1:][::-1],
             range_color=[0,6],
             basemap_visible=True,
-            hover_data={'submit_date':True,'new_cases (14d)':':,','new_cases % pop (14d)':':.2f','state':True, 'state_pop':':,'},
+            hover_data={'submit_date':'|%b %d, %Y','new_cases (14d)':':,','new_cases % pop (14d)':':.2f','state':True, 'state_pop':':,'},
 #            hovertemplate='State: %s<br>NewCases Percent (1d): %%{y:.2f}<br>NewCases Count(1d):%s'% (state, map_df['new_cases % pop (14d)']),
+            labels={'new_cases % pop (14d)':'NewCases(14d) %', 'state':'State','submit_date':'Date','new_cases (14d)':'NewCases(14d)Count','state_pop':'StatePopulation'},
     )
     
 #    d14_cases_map_figure.update_traces(
