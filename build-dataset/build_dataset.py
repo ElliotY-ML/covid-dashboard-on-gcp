@@ -153,7 +153,8 @@ con.commit()
 
 # Query Datasets
 
-with open(os.path.join('src','covid19_ETL.sql')) as ETL:
+# Open SQL query located in `build-dataset` folder
+with open(os.path.join('build-dataset','covid19_ETL.sql')) as ETL:
     data_combine_query = ETL.read()
 
 ETL.close()

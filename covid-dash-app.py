@@ -16,7 +16,10 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
-#%run ./src/build_dataset.py
+# Build new dataset ./build-dataset/build_dataset.py
+# with open('./build-dataset/build_dataset.py','r') as f:
+    # exec(f.read())
+# f.close()   
 
 # Find most recent Generated dataset in the folder `./datasets/Generated`
 most_recent_date = 0
