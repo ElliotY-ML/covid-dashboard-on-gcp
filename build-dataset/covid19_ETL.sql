@@ -31,7 +31,7 @@ WITH
             `coursera-analytics-class.covid_by_percent.cdc_covid_cases_Jan_19`  --change dataset Date
         GROUP BY 
             state_n, submit_date
-),
+	),
     rolling_cases AS(
         SELECT 
             submit_date,
@@ -45,9 +45,9 @@ WITH
             data_cleaned
         ORDER BY 
             submit_date DESC
-),
+	),
 
--- Merge sum_cases_last_14_days into other data.
+	-- Merge sum_cases_last_14_days into other data.
 
     cases_by_state AS(
         SELECT 
@@ -63,7 +63,7 @@ WITH
             state, submit_date
         ORDER BY 
             submit_date DESC
-),
+	),
     state_population AS(    
         SELECT 
             acs.*, abb.STUSAB as state_abb
@@ -72,7 +72,7 @@ WITH
         INNER JOIN 
             `coursera-analytics-class.covid_by_percent.state_abbreviations` as abb
         ON acs.Geographic_Area_Name=abb.STATE_NAME 
-)
+	)
 
 
 SELECT 

@@ -1,6 +1,6 @@
 # Overview
 This repository contains Python code and data for a dashboard deployed on the Google Cloud Platform (GCP) App Engine. 
-The interactive Plotly Dash dashboard displays reported U.S. cases of COVID-19 in line graphs, bar charts, and bubble maps.
+The interactive Plotly Dash dashboard visualizes reported U.S. cases of COVID-19 in line graphs, bar charts, and bubble maps.
 
 ![Created using Dash](/img/DashGCPScreenShot.JPG)
 [Link to Dash dashboard deployed on GCP](https://covid-dash-374301.ue.r.appspot.com/)
@@ -69,7 +69,7 @@ Download the "National FIPS and GNIS Codes File" from the reference library.
 
 
 # Data Preparation
-Information on data preparation can be found in this repository: 
+Information on data preparation using GCP-BigQuery, Python, SQLite3, and Requests can be found in this repository: 
 https://github.com/ElliotY-ML/Covid_Cases_By_Percent_Population
 
 The following features are calculated from the datasets:
