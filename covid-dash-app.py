@@ -76,7 +76,7 @@ app.layout = html.Div(
                 ),
                 html.P(
                     children='''A dashboard that presents daily new cases of COVID-19 reported by the US CDC, as percentage of each state population
-                        Additionally, 14-days aggregated new cases of COVID-19 up to each date is presented
+                        Additionally, 14-day total new cases of COVID-19 up to each date is presented
                         Note: Please allow up to thirty seconds for graphs to load
                         DISCLAIMER: This app is not intended to provide medical advice nor public health statements 
                     ''',

@@ -48,10 +48,15 @@ This repo requires Python3 and the following libraries:
 ## CDC U.S. COVID-19 Cases and Deaths By State  
 U.S. CDC reports daily COVID-19 cases and death counts online at this [link](https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36).  
 The data is a collection of the most recent numbers reported by states, territories, and other jurisdictions to the CDC.  
+
 **Notes**:
 -  This dataset includes Confirmed Cases and Probable Cases, as defined by CSTE [6]. Confirmed cases meet molecular laboratory testing evidence, while Probable cases meet clinical criteria without laboratory evidence. 
 Many jurisdictions include both their confirmed and probable cases ("pnew_case") into reported "Total Cases" and "New Case" counts.
 -  Counts for New York City and New York State are provided separately.  This data must be recombined to analyze them as one New York state.
+
+**Update as of 2023**
+-  This daily-updated dataset was discontinued October 20, 2022 and replaced by a weekly-updated dataset. This project supports only the daily-updated dataset.
+-  A copy of the daily-updated dataset retrieved on November 14, 2022 is located in [`./datasets/United_States_COVID-19_Cases_and_Deaths_by_State_over_Time_Nov_14_22.csv`](./datasets/United_States_COVID-19_Cases_and_Deaths_by_State_over_Time_Nov_14_22.csv).
 
 ## U.S. Census Bureau - 2019 American Community Survey 5-year Estimate 
 The population of each state is obtained from the most recent U.S. Census Bureau American Community Survey 5-Year Estimate 2015-2019 [7].  Detailed descriptions about this data can be found through this [link](https://www.census.gov/acs/www/data/data-tables-and-tools/narrative-profiles/2019/report.php?geotype=nation&usVal=us)   
