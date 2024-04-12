@@ -71,7 +71,7 @@ app.layout = html.Div(
         html.Div(
             children=[
                 html.H1(
-                    children='US CDC Reported COVID-19 Data Normalized by State Populations 🔬📊',
+                    children='US CDC Reported COVID-19 Cases by State Populations 🔬📊',
                     className='header-title',
                 ),
                 html.P(
@@ -171,7 +171,7 @@ app.layout = html.Div(
                                                                     id='date-range',
                                                                     min_date_allowed=covid_df['submit_date'].min(),
                                                                     max_date_allowed=covid_df['submit_date'].max(),
-                                                                    start_date = '2021-10-01',
+                                                                    start_date = '2020-01-22',
                                                                     end_date=covid_df['submit_date'].max(),
                                                                     className='dropdown',
                                                                 ),

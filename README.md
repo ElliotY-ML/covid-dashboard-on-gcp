@@ -2,8 +2,8 @@
 This repository contains Python code and data for a dashboard deployed on the Google Cloud Platform (GCP) App Engine. 
 The interactive Plotly Dash dashboard visualizes reported U.S. cases of COVID-19 in line graphs, bar charts, and bubble maps.
 
-![Created using Dash](/img/DashGCPScreenShot.JPG)
-[Link to Dash dashboard deployed on GCP](https://covid-dash-374301.ue.r.appspot.com/)
+![Created using Dash](/img/DashGCPScreenShot.JPG)  
+[Link to Dash dashboard deployed on GCP (Best viewed on Desktop Browser)](https://covid-dash-374301.ue.r.appspot.com/)
 
 
 # Table of Contents
